@@ -1,0 +1,16 @@
+name: Feature proposal
+description: Suggest a change to GlassStats
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What would you like to do with GlassStats?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: For telemetry ideas, include the API or hardware where known.
+    validations:
+      required: true

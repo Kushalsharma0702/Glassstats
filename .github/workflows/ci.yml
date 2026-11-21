@@ -1,0 +1,37 @@
+name: macOS CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        runner: [macos-26, macos-26-intel]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check toolchain
+        run: |
+          swift --version
+          xcrun --show-sdk-version
+          test "$(xcrun --show-sdk-version | cut -d. -f1)" -ge 26
+      - name: Test
+        run: Scripts/test.sh
+      - name: Build and package
+        run: Scripts/package.sh
+      - name: Verify archive
+        run: |
+          codesign --verify --deep --strict dist/GlassStats.app
+          cd dist
+          shasum -a 256 -c GlassStats.zip.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GlassStats-${{ matrix.runner }}
+          path: |
+            dist/GlassStats.zip
+            dist/GlassStats.zip.sha256

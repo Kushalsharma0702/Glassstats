@@ -1,0 +1,23 @@
+name: Bug report
+description: Report a reproducible problem with GlassStats
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: GlassStats version, macOS version, and Mac model
+      placeholder: 0.1.0 · macOS 26.6 · MacBook Pro
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What happened and what did you expect?
+      description: Redact private addresses and process names from any attachments.
+    validations:
+      required: true
